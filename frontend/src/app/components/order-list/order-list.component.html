@@ -1,0 +1,16 @@
+<div class="d-flex">
+  <button class="btn btn-light" (click)="addOrder()"><i-feather class="small-icon" name="plus"></i-feather></button>
+  <button class="btn btn-light"><i-feather class="small-icon" name="minus"></i-feather></button>
+  <button class="btn btn-light ml-auto" [class.active]="isDetail" (click)="toggleDetail()">详细查找</button>
+</div>
+
+<div class="card mt-3">
+  <h5 class="my-1 mx-3">发盘池</h5>
+  <div class="card-body">
+    <div class="d-flex flex-wrap">
+      <div class="order-item" [class.order-item-detail]="isDetail" *ngFor="let order of orders">
+        <app-order-item [order]="order"></app-order-item>
+      </div>
+    </div>
+  </div>
+</div>

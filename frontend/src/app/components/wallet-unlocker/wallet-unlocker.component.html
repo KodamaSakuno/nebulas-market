@@ -1,0 +1,4 @@
+<div class="form-inline p-3">
+  <input type="text" class="form-control" placeholder="钱包地址" [ngModel]="walletService.address" required #wallet />
+  <button class="btn btn-primary" (click)="bind(wallet.value)">绑定</button>
+</div>

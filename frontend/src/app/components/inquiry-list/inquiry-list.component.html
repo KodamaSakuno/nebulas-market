@@ -1,0 +1,16 @@
+<div class="d-flex">
+  <button class="btn btn-light mr-auto" (click)="gotoTxs()">历史成交</button>
+  <button class="btn btn-light" (click)="removeAllInquiries()"><i-feather class="small-icon" name="minus"></i-feather></button>
+  <button class="btn btn-light" (click)="addInquiry()"><i-feather class="small-icon" name="plus"></i-feather></button>
+</div>
+
+<div class="card mt-3">
+  <h5 class="my-1 mx-3" style="text-align: right;">询盘池</h5>
+  <div class="card-body">
+    <div class="d-flex flex-wrap">
+      <div class="inquiry-item" *ngFor="let inquiry of inquiries">
+        <app-inquiry-item [inquiry]="inquiry"></app-inquiry-item>
+      </div>
+    </div>
+  </div>
+</div>

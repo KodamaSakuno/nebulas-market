@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <app-wallet-unlocker class="mx-auto"></app-wallet-unlocker>
+  </div>
+  <div class="row" *ngIf="isAvailable">
+    <div class="col" [class.d-none]="isDetailOrderList">
+      <app-inquiry-list></app-inquiry-list>
+    </div>
+    <div class="col">
+      <app-order-list [(isDetail)]="isDetailOrderList"></app-order-list>
+    </div>
+  </div>
+  <div *ngIf="isAvailable">
+    <app-test-token></app-test-token>
+  </div>
+  <div class="p-3 text-center">
+    <a [href]="marketContractExplorerUrl">合约</a>
+  </div>
+</div>

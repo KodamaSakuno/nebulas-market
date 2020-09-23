@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">支付 {{ tokenService.symbol }}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="d-flex flex-wrap mb-3">
+    <label style="width: 100%">{{ tokenService.symbol }}</label>
+    <app-amount-input [(amount)]="amount" [decimals]="tokenService.decimals" [min]="min" [max]="max" [disabled]="min.eq(max)" #input></app-amount-input>
+    <ng-container *ngIf="min.lt(max)">
+      <button class="btn btn-primary" (click)="amount = min">{{ !isNewTrader ? '最小值' : '保证金' }}</button>
+      <button class="btn btn-primary" (click)="amount = max">最大值</button>
+    </ng-container>
+  </div>
+  <span *ngIf="allowance.isNaN()">获取配额中……</span>
+  <div *ngIf="isInsuffientAllowance">
+    <p>抱歉，目前配额不足，无法支付。</p>
+    当前配额：{{ allowance | bignumber:tokenService.decimals }} <button class="btn btn-primary" (click)="refreshAllowance()">刷新</button>
+    <app-qrcode [to]="tokenService.contractAddress" func="approve" [args]="[marketService.contractAddress, allowance, amount]" (success)="refreshAllowance()"></app-qrcode>
+  </div>
+  <div *ngIf="!allowance.isNaN() && !isInsuffientAllowance && !input.isInvalid">
+    可以支付
+    <app-qrcode [to]="marketService.contractAddress" func="payOrderWithToken" [args]="[order.id, amount]" (success)="activeModal.close()"></app-qrcode>
+  </div>
+</div>

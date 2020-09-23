@@ -1,0 +1,20 @@
+<div class="item" (click)="showDetail()">
+  <div class="d-flex">
+    <span class="ml-auto">{{ order.value | bignumber:18 | integer }} NAS</span>
+    <span class="mx-2">BID</span>
+    <span class="mr-auto">{{ order.amount | bignumber:order.decimals | integer }} {{ order.symbol }}</span>
+  </div>
+  <div class="d-flex">
+    <div class="ml-auto" [ngSwitch]="order.currencyPaidState">
+      <span *ngSwitchCase="0">保证金未付</span>
+      <span *ngSwitchCase="1">保证金已付</span>
+      <span *ngSwitchCase="2">已付全额</span>
+    </div>
+    <span class="mx-2">1:{{ order.ratio }}</span>
+    <div class="mr-auto" [ngSwitch]="order.tokenPaidState">
+      <span *ngSwitchCase="0">保证金未付</span>
+      <span *ngSwitchCase="1">保证金已付</span>
+      <span *ngSwitchCase="2">已付全额</span>
+    </div>
+  </div>
+</div>

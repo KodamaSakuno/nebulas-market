@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">详细信息</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p>询盘地址：{{ inquiry.from }}</p>
+  <p>资产：{{ inquiry.valueOrAmount || '???' }} {{ inquiry.symbol }}</p>
+  <p>块高度：{{ inquiry.blockHeight }}</p>
+  <hr *ngIf="isMine">
+  <div *ngIf="isMine">
+    <h5>取消该询盘</h5>
+    <app-qrcode [to]="marketService.contractAddress" func="removeInquiry" [args]="[inquiry.id]"></app-qrcode>
+  </div>
+</div>

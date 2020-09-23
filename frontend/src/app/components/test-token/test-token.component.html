@@ -1,0 +1,9 @@
+<div class="card mt-3">
+  <h5 class="my-1 mx-3">测试币信息</h5>
+  <div class="card-body">
+    <p>地址：{{ address }}</p>
+    <p>余额：{{ balance }}</p>
+    <button class="btn btn-primary" (click)="refresh()">刷新</button>
+    <button class="btn btn-light ml-3" (click)="claimTestToken()">领取测试币</button>
+  </div>
+</div>

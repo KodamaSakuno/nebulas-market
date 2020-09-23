@@ -1,0 +1,9 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">是否要删除所有你发出的询盘？</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <app-qrcode [to]="marketService.contractAddress" func="removeAllInquiries" (success)="activeModal.close()"></app-qrcode>
+</div>

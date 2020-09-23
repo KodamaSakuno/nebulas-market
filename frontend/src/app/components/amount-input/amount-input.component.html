@@ -1,0 +1,1 @@
+<input class="form-control" inputmode="numeric" [class.is-invalid]="isInvalid" [ngModel]="amount | bignumber:decimals" (ngModelChange)="onInputChange($event)" [disabled]="disabled">

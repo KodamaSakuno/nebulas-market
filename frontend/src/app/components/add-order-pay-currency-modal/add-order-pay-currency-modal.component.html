@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">支付 NAS</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="d-flex flex-wrap">
+    <label style="width: 100%">NAS</label>
+    <app-amount-input [(amount)]="value" [decimals]="18" [min]="deposit" [max]="max" #input></app-amount-input>
+    <button class="btn btn-primary" (click)="value = deposit">保证金</button>
+    <button class="btn btn-primary" (click)="value = max">最大值</button>
+  </div>
+  <hr *ngIf="!input.isInvalid" />
+  <app-qrcode [to]="marketService.contractAddress" func="addOrderWithNas" [value]="value" [args]="args" (success)="activeModal.close()" *ngIf="!input.isInvalid"></app-qrcode>
+</div>

@@ -1,0 +1,36 @@
+<div class="container">
+  <button class="btn btn-primary mt-3" (click)="goback()">返回</button>
+
+  <div class="card mt-3">
+    <h5 class="my-1 mx-3">历史成交</h5>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">块高度</th>
+            <th scope="col">发盘者</th>
+            <th scope="col">交易者</th>
+            <th scope="col">挂单</th>
+            <th scope="col">实际成交</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transaction of transactions">
+            <th scope="row">{{ transaction.blockHeight }}</th>
+            <td>{{ transaction.order.owner | slice:-6 }}</td>
+            <td>{{ transaction.order.trader! | slice:-6 }}</td>
+            <td>
+              {{ transaction.order.value | bignumber:18 }} NAS
+              {{ transaction.order.type === OrderType.NasToToken ? '->' : '<-' }}
+              {{ transaction.order.amount | bignumber:transaction.order.decimals }} {{ transaction.order.symbol }}
+            </td>
+            <td>
+              {{ transaction.actualValue | bignumber:18 }} NAS
+              {{ transaction.order.type === OrderType.NasToToken ? '->' : '<-' }}
+              {{ transaction.actualAmount | bignumber:transaction.order.decimals }} {{ transaction.order.symbol }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

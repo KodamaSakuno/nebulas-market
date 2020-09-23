@@ -1,0 +1,65 @@
+<app-wallet-unlocker></app-wallet-unlocker>
+
+<div class="p-3" *ngIf="isAvailable">
+  <span *ngIf="!config; else elseBlock">Loading...</span>
+
+  <ng-template #elseBlock>
+    <div class="form-row">
+      <div class="form-group">
+        <label>最小 NAS</label>
+        <app-amount-input [(amount)]="config!.minValue" [decimals]="18"></app-amount-input>
+      </div>
+      <div class="form-group">
+        <label>最大 NAS</label>
+        <app-amount-input [(amount)]="config!.maxValue" [decimals]="18"></app-amount-input>
+      </div>
+    </div>
+    <div class="form-row" *ngIf="symbol">
+      <div class="form-group">
+        <label>最小 {{ symbol }}</label>
+        <app-amount-input [(amount)]="config!.minAmount" [decimals]="decimals"></app-amount-input>
+      </div>
+      <div class="form-group">
+        <label>最大 {{ symbol }}</label>
+        <app-amount-input [(amount)]="config!.maxAmount" [decimals]="decimals"></app-amount-input>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>挂单参数 A(%)</label>
+        <input class="form-control" type="number" min="0" max="100" [(ngModel)]="config!.ratioProtectRange" required />
+      </div>
+      <div class="form-group">
+        <label>挂单参数 B(%)</label>
+        <input class="form-control" type="number" min="0" max="100" [(ngModel)]="config!.valueProtectRange" required />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>保证金参数(%)</label>
+        <input class="form-control" type="number" min="0" max="100" [(ngModel)]="config!.deposit" required />
+      </div>
+      <div class="form-group">
+        <label>手续费参数(‰)</label>
+        <input class="form-control" type="number" min="0" max="100" [(ngModel)]="config!.fee" required />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>收益方地址(50%)</label>
+        <input class="form-control" [(ngModel)]="config!.fee50Receiver" required />
+      </div>
+      <div class="form-group">
+        <label>收益方地址(10%)</label>
+        <input class="form-control" [(ngModel)]="config!.fee10Receivers[0]" required />
+        <input class="form-control" [(ngModel)]="config!.fee10Receivers[1]" required />
+        <input class="form-control" [(ngModel)]="config!.fee10Receivers[2]" required />
+        <input class="form-control" [(ngModel)]="config!.fee10Receivers[3]" required />
+        <input class="form-control" [(ngModel)]="config!.fee10Receivers[4]" required />
+      </div>
+    </div>
+
+    <button class="btn btn-primary" (click)="update()">更新</button>
+    <app-qrcode [to]="proxyContractAddress" func="setConfig" [args]="args" *ngIf="args"></app-qrcode>
+  </ng-template>
+</div>
